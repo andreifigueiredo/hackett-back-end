@@ -25,27 +25,27 @@ Install the project's dependencies using npm within the `app` service.
 ```bash
 docker compose run --rm app npm install
 ```
+
 ### 3. Start the Development Server
 Start all services in detached mode. This will build the Docker images and run the application and testing containers. The app service is configured to restart automatically on changes and sync your local code with the container.
 
 ```Bash
-
 docker compose up -d
 ```
+
 The application will be accessible at `http://localhost:3000`.
 
 ### 4. Running Tests
 The test service runs tests in a separate container, ensuring a clean and isolated testing environment.
 
 ```Bash
-
 docker compose up test
-Key Commands
 ```
+Key Commands
 ```bash
 docker compose up -d: Starts the development server in the background.
 
-docker compose up test: Runs the test suite once.
+docker compose run --rm app npm run test: Runs the test suite once.
 
 docker compose down: Stops and removes all containers, networks, and volumes.
 
