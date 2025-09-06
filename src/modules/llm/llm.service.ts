@@ -14,20 +14,11 @@ export class LlmService {
     this.llmDomain = this.configService.get<string>('llm.domain');
   }
 
-  async ask(message: string): Promise<string> {
-    const client = new Groq({
-        apiKey: this.apiKey,
-    });
-    // const keywords = ['food', 'cuisine', 'recipe', 'restaurant', 'meal', 'lunch', 'dinner', 'snack', 'eating', 'cook'];
-
-    // const hasFoodKeyword = keywords.some(keyword => message.toLowerCase().includes(keyword));
-
-    // if (!hasFoodKeyword) {
-    //   return `⚠️ I only answer questions about ${this.llmDomain}.`;
-    // }
+  async *askStream(message: string): AsyncGenerator<string> {
+    const client = new Groq({ apiKey: this.apiKey });
 
     try {
-      const chatCompletion = await client.chat.completions.create({
+      const stream = await client.chat.completions.create({
         messages: [
           {
             role: 'system',
@@ -36,15 +27,20 @@ export class LlmService {
           { role: 'user', content: message },
         ],
         model: this.llmModel!,
-      }
-      );
+        stream: true,
+      });
 
-      return chatCompletion.choices[0].message.content || "⚠️ It was not possible to answer, please change you question";
+      for await (const chunk of stream) {
+        const token = chunk.choices[0]?.delta?.content ?? "";
+        if (token) {
+          yield token;
+        }
+      }
     } catch (error) {
       if (error instanceof Groq.APIError) {
         throw new BadRequestException(`⚠️ Groq API Error: ${error.message}`);
       } else {
-        throw new BadRequestException('⚠️ An unknown error occurred.');
+        throw new BadRequestException('⚠️ Unknown error during streaming.');
       }
     }
   }

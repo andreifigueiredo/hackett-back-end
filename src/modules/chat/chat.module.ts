@@ -6,13 +6,13 @@ import { APP_GUARD } from '@nestjs/core';
 import { LlmModule } from '../llm/llm.module';
 
 @Module({
-  imports: [ LlmModule ],
+  imports: [LlmModule],
   controllers: [ChatController],
   providers: [
     ChatService,
-  {
+    {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
-  }],
+    }],
 })
-export class ChatModule {}
+export class ChatModule { }
