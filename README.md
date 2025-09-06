@@ -27,8 +27,8 @@ Start all services in detached mode. This will build the Docker images and run t
 ```Bash
 
 docker compose up -d
-The application will be accessible at http://localhost:3000.
 ```
+The application will be accessible at `http://localhost:3000`.
 
 ### 4. Running Tests
 The test service runs tests in a separate container, ensuring a clean and isolated testing environment.
@@ -56,26 +56,24 @@ docker compose logs -f: Follows the logs of all running services.
 
 2. test: A dedicated container for running the test suite. It's isolated from the main application to avoid conflicts and ensure test reliability.
 
-Alternative Setup (Without Docker)
+## Alternative Setup (Without Docker)
+
 If you prefer to run the project without Docker, you can do so by following these steps.
 
-Prerequisites
-Make sure you have Node.js and npm installed on your machine.
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed on your machine.
 
 ### 1. Install Dependencies
+
 Navigate to the project directory and install the dependencies.
 
 ```Bash
-
 npm install
 ```
+
 ### 2. Start the Development Server
-```Bash
 
+```Bash
 npm run start:dev
-```
-### 3. Running Tests
-```Bash
-
-npm run test
 ```
