@@ -1,98 +1,81 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# About Project
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is an API that was built using the grok-sdk. For the tests, the **llama-3.1-8b-instant** model was used, with the **Brazilian cuisine** domain as the subject for the LLM. These variables can be modified in the `.env` file. For an example of how to setup your `.env` file see `.env.example` file
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The project uses Docker to provide a consistent development and testing environment. Follow the steps below to get started.
 
-## Description
+## Prerequisites
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Make sure you have [Docker](https://www.docker.com/get-started) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your machine.
 
-## Project setup
+## Setup and Running (with Docker)
+
+### 1. Environment Variables
+
+Create a file named `.env` in the root of the project. A sample file named `.env.example` should be available to guide you.
+
+### 2. Install Dependencies
+
+Install the project's dependencies using npm within the `app` service.
 
 ```bash
-$ npm install
+docker compose run --rm app npm install
+```
+### 3. Start the Development Server
+Start all services in detached mode. This will build the Docker images and run the application and testing containers. The app service is configured to restart automatically on changes and sync your local code with the container.
+
+```Bash
+
+docker compose up -d
+The application will be accessible at http://localhost:3000.
 ```
 
-## Compile and run the project
+### 4. Running Tests
+The test service runs tests in a separate container, ensuring a clean and isolated testing environment.
 
+```Bash
+
+docker compose up test
+Key Commands
+```
 ```bash
-# development
-$ npm run start
+docker compose up -d: Starts the development server in the background.
 
-# watch mode
-$ npm run start:dev
+docker compose up test: Runs the test suite once.
 
-# production mode
-$ npm run start:prod
+docker compose down: Stops and removes all containers, networks, and volumes.
+
+docker compose run --rm app npm install: Installs npm dependencies. The --rm flag removes the temporary container after the command completes.
+
+docker compose logs -f: Follows the logs of all running services.
 ```
 
-## Run tests
+### Service Descriptions
 
-```bash
-# unit tests
-$ npm run test
+1. app: The main application container. It's configured to auto-restart and sync code changes from your host machine, providing a smooth development experience.
 
-# e2e tests
-$ npm run test:e2e
+2. test: A dedicated container for running the test suite. It's isolated from the main application to avoid conflicts and ensure test reliability.
 
-# test coverage
-$ npm run test:cov
+Alternative Setup (Without Docker)
+If you prefer to run the project without Docker, you can do so by following these steps.
+
+Prerequisites
+Make sure you have Node.js and npm installed on your machine.
+
+### 1. Install Dependencies
+Navigate to the project directory and install the dependencies.
+
+```Bash
+
+npm install
 ```
+### 2. Start the Development Server
+```Bash
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
+### 3. Running Tests
+```Bash
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+npm run test
+```
