@@ -14,7 +14,11 @@ Make sure you have [Docker](https://www.docker.com/get-started) and [Docker Comp
 
 Create a file named `.env` in the root of the project. A sample file named `.env.example` should be available to guide you.
 
-### 2. Install Dependencies
+### 2. Get Your Groq API Key
+
+To set the `LL_API_KEY`, you will first have to create your api key at [Grok](https://console.groq.com/keys), If you do not have an account, you will need to create one, and then press the `Create API Key` button. 
+
+### 3. Install Dependencies
 
 Install the project's dependencies using npm within the `app` service.
 
