@@ -41,18 +41,18 @@ The test service runs tests in a separate container, ensuring a clean and isolat
 ```Bash
 docker compose up test
 ```
-Key Commands
-```bash
-docker compose up -d: Starts the development server in the background.
 
-docker compose run --rm app npm run test: Runs the test suite once.
+## Key Commands
 
-docker compose down: Stops and removes all containers, networks, and volumes.
+* `docker compose up -d`: Starts the development server in the background.
 
-docker compose run --rm app npm install: Installs npm dependencies. The --rm flag removes the temporary container after the command completes.
+* `docker compose run --rm app npm run test`: Runs the test suite once.
 
-docker compose logs -f: Follows the logs of all running services.
-```
+* `docker compose down`: Stops and removes all containers, networks, and volumes.
+
+* `docker compose run --rm app npm install`: Installs npm dependencies.
+
+* `docker compose logs -f`: Follows the logs of all running services.
 
 ### Service Descriptions
 
